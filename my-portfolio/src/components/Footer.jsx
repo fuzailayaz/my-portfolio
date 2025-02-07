@@ -1,25 +1,36 @@
-import React from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+  const socialLinks = [
+    { icon: 'bi-github', url: 'https://github.com/fuzailayaz' },
+    { icon: 'bi-linkedin', url: 'https://linkedin.com/in/fuzailayaz' },
+    { icon: 'bi-envelope', url: 'mailto:fuzailayaz@icloud.com' }
+  ];
+
+  const currentYear = new Date().getFullYear(); // ✅ Better readability
+
   return (
-    <footer className="bg-dark text-white py-4">
+    <footer className="bg-dark-2 py-5">
       <div className="container text-center">
-        <div className="mb-3">
-          <a href="https://github.com/fuzailayaz" target="_blank" rel="noopener noreferrer" className="text-white me-3">
-            <FaGithub size={24} />
-          </a>
-          <a href="https://linkedin.com/in/fuzailayaz" target="_blank" rel="noopener noreferrer" className="text-white me-3">
-            <FaLinkedin size={24} />
-          </a>
-          <a href="mailto:mdfuzailayaz@icloud.com" className="text-white">
-            <FaEnvelope size={24} />
-          </a>
+        <div className="social-links mb-4">
+          {socialLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-3 text-teal-400 fs-4"
+            >
+              <motion.i className={`bi ${link.icon}`} whileHover={{ scale: 1.2 }} />
+            </a>
+          ))}
         </div>
-        <p className="mb-0">&copy; 2023 [Muhammad Fuzail Ayaz]. All rights reserved.</p>
+        <p className="text-muted">
+          © {currentYear} Muhammad Fuzail Ayaz. All rights reserved.
+        </p>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default Footer; // ✅ Changed to default export to match import in App.js

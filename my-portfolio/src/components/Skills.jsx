@@ -1,37 +1,34 @@
-import React, { useEffect } from 'react';
-import { gsap } from 'gsap';
+import { TagCloud } from '@frank-mayer/react-tag-cloud';
+import { useScroll } from '@react-spring/three';
 
 const Skills = () => {
-  useEffect(() => {
-    gsap.from(".skill-bar", { duration: 1, width: 0, ease: "power4.out", stagger: 0.2 });
-  }, []);
-
-  const skills = [
-    { name: 'React', level: 90 },
-    { name: 'JavaScript', level: 95 },
-    { name: 'Node.js', level: 85 },
-    { name: 'HTML/CSS', level: 98 },
-    { name: 'Bootstrap', level: 90 },
-    { name: 'Git', level: 92 },
-  ];
+  const { scrollYProgress } = useScroll();
 
   return (
-    <section id="skills" className="py-5 bg-light">
-      <div className="container">
-        <h2 className="text-center mb-5">Skills</h2>
-        <div className="row">
-          {skills.map((skill, index) => (
-            <div key={index} className="col-md-6">
-              <div className="skill">
-                <h4>{skill.name}</h4>
-                <div className="skill-bar" style={{ width: `${skill.level}%` }}></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <section
+      id="skills"
+      className="py-5 skills-section"
+      style={{ transform: `scale(${1 + scrollYProgress * 0.1})` }}
+    >
+      <TagCloud
+        options={(w) => ({
+          radius: Math.min(600, w.innerWidth) / 3,
+          maxSpeed: "fast",
+          initSpeed: "normal",
+          direction: 135,
+          keep: true
+        })}
+        className="skill-cloud"
+      >
+        {[
+          "Python", "Machine Learning", "TensorFlow", 
+          "Django", "React", "AWS", "Docker", 
+          "Kubernetes", "NLP", "CI/CD", "Git",
+          "SQL", "NoSQL", "JavaScript", "Go"
+        ]}
+      </TagCloud>
     </section>
   );
 };
 
-export default Skills;
+export default Skills; // ✅ Ensuring default export

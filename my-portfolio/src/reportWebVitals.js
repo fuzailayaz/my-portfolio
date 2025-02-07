@@ -1,4 +1,5 @@
-const reportWebVitals = onPerfEntry => {
+// filepath: /workspaces/my-portfolio/my-portfolio/src/reportWebVitals.js
+const reportWebVitals = (onPerfEntry) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
       getCLS(onPerfEntry);

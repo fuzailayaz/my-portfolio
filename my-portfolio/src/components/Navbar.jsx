@@ -1,37 +1,55 @@
-import React from 'react';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Navbar = () => {
+const NavbarComponent = () => {
+  const navItems = [
+    { name: 'About', target: 'about' },
+    { name: 'Projects', target: 'projects' },
+    { name: 'Skills', target: 'skills' },
+    { name: 'Contact', target: 'contact' }
+  ];
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div className="container">
-        <a className="navbar-brand" href="/">My Portfolio</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link to="hero" smooth={true} duration={500} className="nav-link">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="about" smooth={true} duration={500} className="nav-link">About</Link>
-              </li>
-            <li className="nav-item">
-              <Link to="skills" smooth={true} duration={500} className="nav-link">Skills</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="projects" smooth={true} duration={500} className="nav-link">Projects</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="contact" smooth={true} duration={500} className="nav-link">Contact</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <Navbar expand="lg" className="fixed-top glass-nav py-3">
+      <Container>
+        {/* Animated Brand Name */}
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Navbar.Brand className="text-teal-400 fs-3 fw-bold">
+            FUZAIL.dev
+          </Navbar.Brand>
+        </motion.div>
+
+        {/* Navbar Toggle Button for Mobile View */}
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        {/* Collapsible Navbar Content */}
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto gap-4">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to={item.target}
+                  spy={true}
+                  smooth={true}
+                  offset={-70} // Adjust based on navbar height
+                  duration={500}
+                  className="nav-link text-white"
+                  activeClass="active-link"
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
+            ))}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavbarComponent; // ✅ Ensures correct import in App.js

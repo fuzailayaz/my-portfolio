@@ -1,48 +1,34 @@
-import React from 'react';
+import { useSpring, animated } from '@react-spring/web';
+import ProjectCard from './ProjectCard'; // ✅ Corrected import
+
+const projects = [
+  {
+    title: "Intelligent Bug Tracking",
+    tech: ["Python", "NLP", "Flask"],
+    description: "AI-powered bug resolution platform with ML classification",
+    link: "https://github.com/fuzailayaz"
+  },
+];
 
 const Projects = () => {
-  const projects = [
-    {
-      title: 'Project 1',
-      description: 'A full-stack web application built with React and Node.js, designed to streamline project management tasks.',
-      image: 'https://via.placeholder.com/300',
-      link: '#',
-    },
-    {
-      title: 'Project 2',
-      description: 'An e-commerce platform with a responsive design and secure payment integration.',
-      image: 'https://via.placeholder.com/300',
-      link: '#',
-    },
-    {
-      title: 'Project 3',
-      description: 'A real-time chat application using WebSocket and React for seamless communication.',
-      image: 'https://via.placeholder.com/300',
-      link: '#',
-    },
-  ];
+  const springs = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    delay: 200
+  });
 
   return (
     <section id="projects" className="py-5">
-      <div className="container">
-        <h2 className="text-center mb-5">Projects</h2>
-        <div className="row">
+      <animated.div style={springs}>
+        <h2 className="section-title">Featured Projects</h2>
+        <div className="project-grid">
           {projects.map((project, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <div className="card h-100">
-                <img src={project.image} className="card-img-top" alt={project.title} />
-                <div className="card-body">
-                  <h5 className="card-title">{project.title}</h5>
-                  <p className="card-text">{project.description}</p>
-                  <a href={project.link} className="btn btn-custom">View Project</a>
-                </div>
-              </div>
-            </div>
+            <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
-      </div>
+      </animated.div>
     </section>
   );
 };
 
-export default Projects;
+export default Projects; // ✅ Ensuring default export
